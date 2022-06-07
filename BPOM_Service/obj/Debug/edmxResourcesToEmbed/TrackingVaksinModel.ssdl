@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TrackingVaksinModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Akun">
+    <Key>
+      <PropertyRef Name="username" />
+    </Key>
+    <Property Name="username" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="password" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="role" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="create_at" Type="datetime" />
+  </EntityType>
+  <EntityType Name="BPOM">
+    <Key>
+      <PropertyRef Name="id_BPOM" />
+    </Key>
+    <Property Name="id_BPOM" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="username" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Nama" Type="varchar" MaxLength="50" />
+    <Property Name="Divisi" Type="varchar" MaxLength="50" />
+    <Property Name="create_at" Type="datetime" />
+  </EntityType>
+  <EntityType Name="BPOM_Log_Kedatangan_Vaksin">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_RumahSakit" Type="int" />
+    <Property Name="id_produsen" Type="int" />
+    <Property Name="no_registrasi" Type="varchar" MaxLength="20" />
+    <Property Name="create_at" Type="datetime" />
+  </EntityType>
+  <EntityType Name="BPOM_Log_Penggunaan_Vaksin">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_RumahSakit" Type="int" />
+    <Property Name="no_registrasi" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="No_RekMedis" Type="varchar" MaxLength="30" />
+    <Property Name="NIK" Type="char" MaxLength="16" Nullable="false" />
+    <Property Name="create_at" Type="datetime" />
+  </EntityType>
+  <EntityType Name="BPOM_Vaksin">
+    <Key>
+      <PropertyRef Name="no_registrasi" />
+    </Key>
+    <Property Name="no_registrasi" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="status" Type="varchar" MaxLength="30" />
+    <Property Name="create_at" Type="datetime" />
+    <Property Name="id_produsen" Type="int" />
+    <Property Name="kemasan" Type="varchar" MaxLength="50" />
+    <Property Name="jumlah" Type="int" />
+  </EntityType>
+  <EntityType Name="Masyarakat">
+    <Key>
+      <PropertyRef Name="NIK" />
+    </Key>
+    <Property Name="NIK" Type="char" MaxLength="16" Nullable="false" />
+    <Property Name="username" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Nama" Type="varchar" MaxLength="50" />
+    <Property Name="Alamat" Type="varchar" MaxLength="150" />
+    <Property Name="JK" Type="char" MaxLength="1" />
+    <Property Name="TglLahir" Type="date" />
+  </EntityType>
+  <EntityType Name="Pasien">
+    <Key>
+      <PropertyRef Name="No_RekMedis" />
+    </Key>
+    <Property Name="No_RekMedis" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="id_RumahSakit" Type="int" />
+    <Property Name="NIK" Type="char" MaxLength="16" />
+    <Property Name="no_registrasi" Type="varchar" MaxLength="20" />
+    <Property Name="create_at" Type="datetime" />
+    <Property Name="isReported" Type="int" />
+  </EntityType>
+  <EntityType Name="Produsen">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="username" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="No_Ijin" Type="varchar" MaxLength="50" />
+    <Property Name="Nama" Type="varchar" MaxLength="50" />
+    <Property Name="Alamat" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Produsen_Vaksin">
+    <Key>
+      <PropertyRef Name="no_registrasi" />
+    </Key>
+    <Property Name="no_registrasi" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="id_produsen" Type="int" Nullable="false" />
+    <Property Name="status" Type="varchar" MaxLength="30" />
+    <Property Name="create_at" Type="datetime" />
+    <Property Name="kemasan" Type="varchar" MaxLength="50" />
+    <Property Name="jumlah" Type="int" />
+  </EntityType>
+  <EntityType Name="RS_Vaksin">
+    <Key>
+      <PropertyRef Name="no_registrasi" />
+    </Key>
+    <Property Name="no_registrasi" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="id_rumahSakit" Type="int" />
+    <Property Name="create_at" Type="datetime" />
+    <Property Name="kode_ref" Type="varchar" MaxLength="50" />
+    <Property Name="id_produsen" Type="int" />
+    <Property Name="isReported" Type="int" />
+    <Property Name="kemasan" Type="varchar" MaxLength="50" />
+    <Property Name="jumlah" Type="int" />
+  </EntityType>
+  <EntityType Name="RumahSakit">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="username" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="No_Ijin" Type="varchar" MaxLength="50" />
+    <Property Name="Nama" Type="varchar" MaxLength="50" />
+    <Property Name="Alamat" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityContainer Name="TrackingVaksinModelStoreContainer">
+    <EntitySet Name="Akun" EntityType="Self.Akun" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BPOM" EntityType="Self.BPOM" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BPOM_Log_Kedatangan_Vaksin" EntityType="Self.BPOM_Log_Kedatangan_Vaksin" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BPOM_Log_Penggunaan_Vaksin" EntityType="Self.BPOM_Log_Penggunaan_Vaksin" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BPOM_Vaksin" EntityType="Self.BPOM_Vaksin" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Masyarakat" EntityType="Self.Masyarakat" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Pasien" EntityType="Self.Pasien" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Produsen" EntityType="Self.Produsen" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Produsen_Vaksin" EntityType="Self.Produsen_Vaksin" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RS_Vaksin" EntityType="Self.RS_Vaksin" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RumahSakit" EntityType="Self.RumahSakit" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>

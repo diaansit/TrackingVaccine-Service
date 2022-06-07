@@ -1,0 +1,252 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TrackingVaksinModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="BPOM_Log_Kedatangan_Vaksin">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_RumahSakit" Type="Int32" />
+    <Property Name="id_produsen" Type="Int32" />
+    <Property Name="no_registrasi" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="create_at" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Produsen" Relationship="Self.FK__BPOM_Log___id_pr__06CD04F7" FromRole="BPOM_Log_Kedatangan_Vaksin" ToRole="Produsen" />
+    <NavigationProperty Name="RumahSakit" Relationship="Self.FK__BPOM_Log___id_Ru__05D8E0BE" FromRole="BPOM_Log_Kedatangan_Vaksin" ToRole="RumahSakit" />
+  </EntityType>
+  <EntityType Name="BPOM_Log_Penggunaan_Vaksin">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_RumahSakit" Type="Int32" />
+    <Property Name="no_registrasi" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="No_RekMedis" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="NIK" Type="String" MaxLength="16" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="create_at" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="RumahSakit" Relationship="Self.FK__BPOM_Log___id_Ru__09A971A2" FromRole="BPOM_Log_Penggunaan_Vaksin" ToRole="RumahSakit" />
+    <NavigationProperty Name="Pasien" Relationship="Self.FK__BPOM_Log___No_Re__0A9D95DB" FromRole="BPOM_Log_Penggunaan_Vaksin" ToRole="Pasien" />
+  </EntityType>
+  <EntityType Name="BPOM_Vaksin">
+    <Key>
+      <PropertyRef Name="no_registrasi" />
+    </Key>
+    <Property Name="no_registrasi" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="status" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="create_at" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="Masyarakat">
+    <Key>
+      <PropertyRef Name="NIK" />
+    </Key>
+    <Property Name="NIK" Type="String" MaxLength="16" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="Nama" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Alamat" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="JK" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="TglLahir" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="Pasien" Relationship="Self.FK__Pasien__NIK__02084FDA" FromRole="Masyarakat" ToRole="Pasien" />
+  </EntityType>
+  <EntityType Name="Pasien">
+    <Key>
+      <PropertyRef Name="No_RekMedis" />
+    </Key>
+    <Property Name="No_RekMedis" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="NIK" Type="String" MaxLength="16" FixedLength="true" Unicode="false" />
+    <Property Name="no_registrasi" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="create_at" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="BPOM_Log_Penggunaan_Vaksin" Relationship="Self.FK__BPOM_Log___No_Re__0A9D95DB" FromRole="Pasien" ToRole="BPOM_Log_Penggunaan_Vaksin" />
+    <NavigationProperty Name="Masyarakat" Relationship="Self.FK__Pasien__NIK__02084FDA" FromRole="Pasien" ToRole="Masyarakat" />
+    <NavigationProperty Name="RS_Vaksin" Relationship="Self.FK__Pasien__no_regis__02FC7413" FromRole="Pasien" ToRole="RS_Vaksin" />
+  </EntityType>
+  <EntityType Name="Produsen">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="No_Ijin" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Nama" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Alamat" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="BPOM_Log_Kedatangan_Vaksin" Relationship="Self.FK__BPOM_Log___id_pr__06CD04F7" FromRole="Produsen" ToRole="BPOM_Log_Kedatangan_Vaksin" />
+    <NavigationProperty Name="Produsen_Vaksin" Relationship="Self.FK__Produsen___id_pr__7D439ABD" FromRole="Produsen" ToRole="Produsen_Vaksin" />
+  </EntityType>
+  <EntityType Name="Produsen_Vaksin">
+    <Key>
+      <PropertyRef Name="no_registrasi" />
+    </Key>
+    <Property Name="no_registrasi" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="id_produsen" Type="Int32" Nullable="false" />
+    <Property Name="status" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="create_at" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Produsen" Relationship="Self.FK__Produsen___id_pr__7D439ABD" FromRole="Produsen_Vaksin" ToRole="Produsen" />
+  </EntityType>
+  <EntityType Name="RS_Vaksin">
+    <Key>
+      <PropertyRef Name="no_registrasi" />
+    </Key>
+    <Property Name="no_registrasi" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="id_rumahSakit" Type="Int32" />
+    <Property Name="create_at" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Pasien" Relationship="Self.FK__Pasien__no_regis__02FC7413" FromRole="RS_Vaksin" ToRole="Pasien" />
+    <NavigationProperty Name="RumahSakit" Relationship="Self.FK__RS_Vaksin__id_ru__787EE5A0" FromRole="RS_Vaksin" ToRole="RumahSakit" />
+  </EntityType>
+  <EntityType Name="RumahSakit">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="No_Ijin" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Nama" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Alamat" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="BPOM_Log_Kedatangan_Vaksin" Relationship="Self.FK__BPOM_Log___id_Ru__05D8E0BE" FromRole="RumahSakit" ToRole="BPOM_Log_Kedatangan_Vaksin" />
+    <NavigationProperty Name="BPOM_Log_Penggunaan_Vaksin" Relationship="Self.FK__BPOM_Log___id_Ru__09A971A2" FromRole="RumahSakit" ToRole="BPOM_Log_Penggunaan_Vaksin" />
+    <NavigationProperty Name="RS_Vaksin" Relationship="Self.FK__RS_Vaksin__id_ru__787EE5A0" FromRole="RumahSakit" ToRole="RS_Vaksin" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <Association Name="FK__BPOM_Log___id_pr__06CD04F7">
+    <End Role="Produsen" Type="Self.Produsen" Multiplicity="0..1" />
+    <End Role="BPOM_Log_Kedatangan_Vaksin" Type="Self.BPOM_Log_Kedatangan_Vaksin" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Produsen">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="BPOM_Log_Kedatangan_Vaksin">
+        <PropertyRef Name="id_produsen" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__BPOM_Log___id_Ru__05D8E0BE">
+    <End Role="RumahSakit" Type="Self.RumahSakit" Multiplicity="0..1" />
+    <End Role="BPOM_Log_Kedatangan_Vaksin" Type="Self.BPOM_Log_Kedatangan_Vaksin" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RumahSakit">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="BPOM_Log_Kedatangan_Vaksin">
+        <PropertyRef Name="id_RumahSakit" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__BPOM_Log___id_Ru__09A971A2">
+    <End Role="RumahSakit" Type="Self.RumahSakit" Multiplicity="0..1" />
+    <End Role="BPOM_Log_Penggunaan_Vaksin" Type="Self.BPOM_Log_Penggunaan_Vaksin" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RumahSakit">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="BPOM_Log_Penggunaan_Vaksin">
+        <PropertyRef Name="id_RumahSakit" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__BPOM_Log___No_Re__0A9D95DB">
+    <End Role="Pasien" Type="Self.Pasien" Multiplicity="0..1" />
+    <End Role="BPOM_Log_Penggunaan_Vaksin" Type="Self.BPOM_Log_Penggunaan_Vaksin" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Pasien">
+        <PropertyRef Name="No_RekMedis" />
+      </Principal>
+      <Dependent Role="BPOM_Log_Penggunaan_Vaksin">
+        <PropertyRef Name="No_RekMedis" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Pasien__NIK__02084FDA">
+    <End Role="Masyarakat" Type="Self.Masyarakat" Multiplicity="0..1" />
+    <End Role="Pasien" Type="Self.Pasien" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Masyarakat">
+        <PropertyRef Name="NIK" />
+      </Principal>
+      <Dependent Role="Pasien">
+        <PropertyRef Name="NIK" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Pasien__no_regis__02FC7413">
+    <End Role="RS_Vaksin" Type="Self.RS_Vaksin" Multiplicity="0..1" />
+    <End Role="Pasien" Type="Self.Pasien" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RS_Vaksin">
+        <PropertyRef Name="no_registrasi" />
+      </Principal>
+      <Dependent Role="Pasien">
+        <PropertyRef Name="no_registrasi" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Produsen___id_pr__7D439ABD">
+    <End Role="Produsen" Type="Self.Produsen" Multiplicity="1" />
+    <End Role="Produsen_Vaksin" Type="Self.Produsen_Vaksin" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Produsen">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Produsen_Vaksin">
+        <PropertyRef Name="id_produsen" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__RS_Vaksin__id_ru__787EE5A0">
+    <End Role="RumahSakit" Type="Self.RumahSakit" Multiplicity="0..1" />
+    <End Role="RS_Vaksin" Type="Self.RS_Vaksin" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RumahSakit">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="RS_Vaksin">
+        <PropertyRef Name="id_rumahSakit" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="TrackingVaksinEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="BPOM_Log_Kedatangan_Vaksin" EntityType="Self.BPOM_Log_Kedatangan_Vaksin" />
+    <EntitySet Name="BPOM_Log_Penggunaan_Vaksin" EntityType="Self.BPOM_Log_Penggunaan_Vaksin" />
+    <EntitySet Name="BPOM_Vaksin" EntityType="Self.BPOM_Vaksin" />
+    <EntitySet Name="Masyarakat" EntityType="Self.Masyarakat" />
+    <EntitySet Name="Pasien" EntityType="Self.Pasien" />
+    <EntitySet Name="Produsen" EntityType="Self.Produsen" />
+    <EntitySet Name="Produsen_Vaksin" EntityType="Self.Produsen_Vaksin" />
+    <EntitySet Name="RS_Vaksin" EntityType="Self.RS_Vaksin" />
+    <EntitySet Name="RumahSakit" EntityType="Self.RumahSakit" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <AssociationSet Name="FK__BPOM_Log___id_pr__06CD04F7" Association="Self.FK__BPOM_Log___id_pr__06CD04F7">
+      <End Role="Produsen" EntitySet="Produsen" />
+      <End Role="BPOM_Log_Kedatangan_Vaksin" EntitySet="BPOM_Log_Kedatangan_Vaksin" />
+    </AssociationSet>
+    <AssociationSet Name="FK__BPOM_Log___id_Ru__05D8E0BE" Association="Self.FK__BPOM_Log___id_Ru__05D8E0BE">
+      <End Role="RumahSakit" EntitySet="RumahSakit" />
+      <End Role="BPOM_Log_Kedatangan_Vaksin" EntitySet="BPOM_Log_Kedatangan_Vaksin" />
+    </AssociationSet>
+    <AssociationSet Name="FK__BPOM_Log___id_Ru__09A971A2" Association="Self.FK__BPOM_Log___id_Ru__09A971A2">
+      <End Role="RumahSakit" EntitySet="RumahSakit" />
+      <End Role="BPOM_Log_Penggunaan_Vaksin" EntitySet="BPOM_Log_Penggunaan_Vaksin" />
+    </AssociationSet>
+    <AssociationSet Name="FK__BPOM_Log___No_Re__0A9D95DB" Association="Self.FK__BPOM_Log___No_Re__0A9D95DB">
+      <End Role="Pasien" EntitySet="Pasien" />
+      <End Role="BPOM_Log_Penggunaan_Vaksin" EntitySet="BPOM_Log_Penggunaan_Vaksin" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Pasien__NIK__02084FDA" Association="Self.FK__Pasien__NIK__02084FDA">
+      <End Role="Masyarakat" EntitySet="Masyarakat" />
+      <End Role="Pasien" EntitySet="Pasien" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Pasien__no_regis__02FC7413" Association="Self.FK__Pasien__no_regis__02FC7413">
+      <End Role="RS_Vaksin" EntitySet="RS_Vaksin" />
+      <End Role="Pasien" EntitySet="Pasien" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Produsen___id_pr__7D439ABD" Association="Self.FK__Produsen___id_pr__7D439ABD">
+      <End Role="Produsen" EntitySet="Produsen" />
+      <End Role="Produsen_Vaksin" EntitySet="Produsen_Vaksin" />
+    </AssociationSet>
+    <AssociationSet Name="FK__RS_Vaksin__id_ru__787EE5A0" Association="Self.FK__RS_Vaksin__id_ru__787EE5A0">
+      <End Role="RumahSakit" EntitySet="RumahSakit" />
+      <End Role="RS_Vaksin" EntitySet="RS_Vaksin" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TrackingVaksinModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="BPOM">
+    <Key>
+      <PropertyRef Name="id_BPOM" />
+    </Key>
+    <Property Name="id_BPOM" Type="Int32" Nullable="false" />
+    <Property Name="Nama" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Divisi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="create_at" Type="DateTime" Precision="3" />
+    <Property Name="username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="BPOM_Log_Kedatangan_Vaksin">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_RumahSakit" Type="Int32" />
+    <Property Name="id_produsen" Type="Int32" />
+    <Property Name="no_registrasi" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="create_at" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="BPOM_Log_Penggunaan_Vaksin">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_RumahSakit" Type="Int32" />
+    <Property Name="no_registrasi" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="No_RekMedis" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="NIK" Type="String" MaxLength="16" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="create_at" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="Masyarakat">
+    <Key>
+      <PropertyRef Name="NIK" />
+    </Key>
+    <Property Name="NIK" Type="String" MaxLength="16" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="Nama" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Alamat" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="JK" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="TglLahir" Type="DateTime" Precision="0" />
+    <Property Name="username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Pasien">
+    <Key>
+      <PropertyRef Name="No_RekMedis" />
+    </Key>
+    <Property Name="No_RekMedis" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="id_RumahSakit" Type="Int32" />
+    <Property Name="NIK" Type="String" MaxLength="16" FixedLength="true" Unicode="false" />
+    <Property Name="no_registrasi" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="create_at" Type="DateTime" Precision="3" />
+    <Property Name="isReported" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Produsen">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="No_Ijin" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Nama" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Alamat" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Produsen_Vaksin">
+    <Key>
+      <PropertyRef Name="no_registrasi" />
+    </Key>
+    <Property Name="no_registrasi" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="id_produsen" Type="Int32" Nullable="false" />
+    <Property Name="status" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="create_at" Type="DateTime" Precision="3" />
+    <Property Name="kemasan" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="jumlah" Type="Int32" />
+  </EntityType>
+  <EntityType Name="RS_Vaksin">
+    <Key>
+      <PropertyRef Name="no_registrasi" />
+    </Key>
+    <Property Name="no_registrasi" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="id_rumahSakit" Type="Int32" />
+    <Property Name="create_at" Type="DateTime" Precision="3" />
+    <Property Name="kode_ref" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="id_produsen" Type="Int32" />
+    <Property Name="isReported" Type="Int32" />
+    <Property Name="kemasan" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="jumlah" Type="Int32" />
+  </EntityType>
+  <EntityType Name="RumahSakit">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="No_Ijin" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Nama" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Alamat" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityContainer Name="TrackingVaksinEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="BPOM" EntityType="Self.BPOM" />
+    <EntitySet Name="BPOM_Log_Kedatangan_Vaksin" EntityType="Self.BPOM_Log_Kedatangan_Vaksin" />
+    <EntitySet Name="BPOM_Log_Penggunaan_Vaksin" EntityType="Self.BPOM_Log_Penggunaan_Vaksin" />
+    <EntitySet Name="Masyarakat" EntityType="Self.Masyarakat" />
+    <EntitySet Name="Pasien" EntityType="Self.Pasien" />
+    <EntitySet Name="Produsen" EntityType="Self.Produsen" />
+    <EntitySet Name="Produsen_Vaksin" EntityType="Self.Produsen_Vaksin" />
+    <EntitySet Name="RS_Vaksin" EntityType="Self.RS_Vaksin" />
+    <EntitySet Name="RumahSakit" EntityType="Self.RumahSakit" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="Akun" EntityType="TrackingVaksinModel.Akun" />
+    <EntitySet Name="BPOM_Vaksin" EntityType="TrackingVaksinModel.BPOM_Vaksin" />
+  </EntityContainer>
+  <EntityType Name="Akun">
+    <Key>
+      <PropertyRef Name="username" />
+    </Key>
+    <Property Name="username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="role" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="create_at" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="BPOM_Vaksin">
+    <Key>
+      <PropertyRef Name="no_registrasi" />
+    </Key>
+    <Property Name="no_registrasi" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="status" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="create_at" Type="DateTime" Precision="3" />
+    <Property Name="id_produsen" Type="Int32" />
+    <Property Name="kemasan" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="jumlah" Type="Int32" />
+  </EntityType>
+</Schema>
